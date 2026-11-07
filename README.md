@@ -137,6 +137,12 @@ export MATPLOTLIBRC=~/dsh-workspace/_tools/matplotlibrc   # DSH를 띄우는 환
 - `fetch_doc.sh`는 옛 HWP 바이너리, 스캔 PDF(글자 없음), 로그인·자바스크립트가 필요한 페이지를 읽지 못합니다.
 - 규칙이 한국어이고 한국어 답을 전제로 합니다.
 
+## 알아 둘 것
+
+- **비공식 개인 설정입니다.** DeepSeek·Exa와 관계없으며, 이름은 호환 대상을 설명하려고만 씁니다.
+- **이용 책임:** `fetch_doc.sh`는 공개된 문서를 받는 도구입니다. 각 사이트의 이용약관·robots 규칙과 접속 빈도는 사용자가 지켜야 하며, 받은 자료의 저작권은 원저작자에게 있습니다.
+- 조사 결과와 보고서의 정확성은 보장하지 않습니다. 중요한 수치는 원문으로 확인하세요.
+
 ## License
 
-MIT — [LICENSE](LICENSE)
+MIT — [LICENSE](LICENSE). `deep-search.patch.yml`의 일부는 DeepSeek DSH(MIT)에서 가져왔습니다 — [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

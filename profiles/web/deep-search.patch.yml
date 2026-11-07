@@ -1,4 +1,6 @@
 # dsh-deep-search-kit — Deep search 모드 패치 (DSH Web 프로필용 patch overlay)
+# 일부(플러그인 목록, plan-mode 지시문)는 DeepSeek DSH의 presets/standard.patch.yml (MIT, Copyright (c) 2026 DeepSeek)에서 가져왔다.
+# 라이선스 전문: THIRD_PARTY_NOTICES.md
 #
 # 내장 Standard 프리셋(id: standard) 행을 덮어써서 "Deep search" 조사 모드로 바꾼다.
 # patch의 config는 통째로 교체되므로 @deepseek-ai/dsh-web-app/presets/standard.patch.yml 전체를 옮겨 적고
