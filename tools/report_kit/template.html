@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>보고서 제목</title>
+<!-- report.css 는 이 HTML 옆에 없으면 build_pdf.py 가 report_kit/report.css 를 자동으로 넣는다. -->
+<link rel="stylesheet" href="report.css">
+<style>
+  /* 보고서별 추가 스타일은 여기에만. 기본 레이아웃(@page, 표, 목차)은 건드리지 않는다. */
+</style>
+</head>
+<body>
+
+<!-- ===== 표지 (1쪽) ===== -->
+<div class="cover">
+  <div class="kicker">RESEARCH REPORT</div>
+  <h1>보고서 제목</h1>
+  <p class="subtitle">부제 한 줄</p>
+  <div class="meta">작성: DSH · 작성일: 2026-11-07 · 기준 시점: 2026년 11월</div>
+</div>
+
+<!-- ===== 목차 =====
+  규칙: li 하나 = 제목 하나. data-target 에 본문 제목의 id 를 적는다.
+  쪽번호(.toc-pn)는 비워 둔다. build_pdf.py 가 자동으로 채운다.
+  하위 제목(h3)은 class="sub" 를 붙인다. -->
+<nav class="toc">
+  <h2 class="toc-title">목차</h2>
+  <ol>
+    <li data-target="s1"><a href="#s1">1. 핵심 요약</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="s2"><a href="#s2">2. 본론</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li class="sub" data-target="s2-1"><a href="#s2-1">2.1 하위 제목</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="caveats"><a href="#caveats">확인 못 한 것 / 상충 정보</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="refs"><a href="#refs">참고문헌</a><span class="dots"></span><span class="toc-pn"></span></li>
+  </ol>
+</nav>
+
+<!-- ===== 본문 =====
+  - 섹션 = <section>. 새 쪽에서 시작해야 하면 class="page-break".
+  - 제목 텍스트는 목차 li 의 글자와 똑같이 쓴다(쪽번호 찾기에 씀).
+  - 각주: <a class="fn" href="#ref-1">[1]</a>  (번호 = 참고문헌 순서)
+  - 쪽에서 나뉘면 안 되는 블록: class="avoid" -->
+<section>
+  <h2 id="s1">1. 핵심 요약</h2>
+  <div class="summary">
+    <div class="summary-title">핵심 요약</div>
+    <ul>
+      <li>결론 1 <a class="fn" href="#ref-1">[1]</a></li>
+      <li>결론 2</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-break">
+  <h2 id="s2">2. 본론</h2>
+  <p>본문 문단.</p>
+
+  <h3 id="s2-1">2.1 하위 제목</h3>
+  <div class="table-caption">표 1. 표 제목</div>
+  <table>
+    <thead><tr><th style="width:30%">항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>설명</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 그림은 SVG 를 HTML 안에 직접 쓰는 것이 기본(matplotlib 불필요). 예시는 README 참고. -->
+  <figure>
+    <svg width="420" height="160" viewBox="0 0 420 160" xmlns="http://www.w3.org/2000/svg"
+         font-family="Apple SD Gothic Neo" font-size="11">
+      <line x1="60" y1="130" x2="400" y2="130" stroke="#8a94a6"/>
+      <rect x="80" y="60" width="60" height="70" fill="#2457a6"/><text x="110" y="52" text-anchor="middle">70</text>
+      <text x="110" y="146" text-anchor="middle">항목 A</text>
+      <rect x="200" y="90" width="60" height="40" fill="#7a9cd1"/><text x="230" y="82" text-anchor="middle">40</text>
+      <text x="230" y="146" text-anchor="middle">항목 B</text>
+    </svg>
+    <figcaption>그림 1. 그림 설명 (출처: …)</figcaption>
+  </figure>
+</section>
+
+<!-- ===== 본문 이어 붙이기 지점 =====
+  본문이 길면 섹션을 조각으로 나눠 붙여도 된다. 최종 파일은 report.html 하나.
+  - edit: 아래 표시 줄을 old_str 로, new_str = "새 <section>…</section>" + 줄바꿈 + 같은 표시 줄
+  - cat >> report.html: 파일 맨 끝에 붙여도 build_pdf.py 가 이 표시 지점으로 옮겨 저장한다.
+  표시 줄은 지우지 않는다. -->
+<!-- @@APPEND@@ -->
+
+<!-- ===== 확인 못 한 것 / 상충 정보 (지우지 말 것. 없으면 "없음"이라고 쓴다) ===== -->
+<section>
+  <h2 id="caveats">확인 못 한 것 / 상충 정보</h2>
+  <div class="caveats">
+    <div class="caveats-title">확인 못 한 것 · 상충 정보</div>
+    <ul>
+      <li>확인 못 한 것: 찾았지만 1차 출처를 확보하지 못한 수치, 유료라 못 본 자료 등.</li>
+      <li>상충 정보: 기관마다 다른 수치는 정의(모집단·시점)와 함께 나란히 적는다.</li>
+      <li>추정: 본문에 쓴 추정·시나리오 수치는 근거 수치와 계산 방법을 적는다.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 참고문헌 =====
+  li 순서 = 각주 번호. 번호 "[n]"은 CSS가 붙이므로 li 안에 쓰지 않는다.
+  id="ref-n" 을 꼭 달고, URL 은 <a class="url"> 안에 전체 주소를 글자 그대로 쓴다. -->
+<section class="page-break">
+  <h2 id="refs">참고문헌</h2>
+  <ol class="refs">
+    <li id="ref-1">기관명, 「문서 제목」, 2026-10-01.
+      <a class="url" href="https://example.com/full/path">https://example.com/full/path</a></li>
+  </ol>
+</section>
+
+</body>
+</html>

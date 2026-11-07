@@ -1,0 +1,22 @@
+# dsh-deep-search-kit — (선택) Exa 웹 검색 공급자 patch overlay
+#
+# Deep search 모드는 이 파일 없이도 동작한다(기본 web_search 공급자 deepseek-official 사용).
+# Exa 검색을 쓰려면 먼저 프로필에 플러그인을 설치한다:
+#   dsh plugin --profile web add @deepseek-ai/dsh-web-search-exa
+# 그리고 DSH를 띄우는 환경에 EXA_API_KEY 환경변수를 넣는다. 키 값은 이 파일에 적지 않는다
+# (patch 파일은 세션 기록·백업에 그대로 남을 수 있다). 플러그인은 apiKey가 비어 있으면 $EXA_API_KEY를 읽는다.
+- insert:
+    - id: web-search-exa
+      name: '@deepseek-ai/dsh-web-search-exa'
+      config:
+        # auto = Exa가 쿼리에 따라 keyword/neural을 고른다. 품질 우선이면 neural, 정확한 문자열 매칭이면 keyword.
+        searchType: auto
+        # 결과당 highlight 문장 수. 이 공급자는 첫 비어 있지 않은 highlight만 snippet으로 쓰므로 1이면 충분하다.
+        highlightsPerResult: 1
+- id: web
+  name: '@deepseek-ai/dsh-web'
+  config:
+    # EXA_API_KEY가 있으면 exa, 없으면 기본 deepseek-official로 돌아간다.
+    # 없는 공급자를 지정하면 web_search가 WEB_PROVIDER_CONFIGURED_UNAVAILABLE로 실패하므로 이렇게 가드를 둔다.
+    searchProvider: !!js 'process.env.EXA_API_KEY ? "exa" : "deepseek-official"'
+    fetchProvider: http

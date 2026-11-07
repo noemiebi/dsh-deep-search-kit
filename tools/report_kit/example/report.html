@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>예시: 국내 전기차 충전 인프라 현황</title>
+<!-- report.css 는 이 HTML 옆에 없으면 build_pdf.py 가 report_kit/report.css 를 자동으로 넣는다. -->
+<link rel="stylesheet" href="report.css">
+<style>
+  /* 보고서별 추가 스타일은 여기에만. 기본 레이아웃(@page, 표, 목차)은 건드리지 않는다. */
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="kicker">RESEARCH REPORT · 예시</div>
+  <h1>국내 전기차 충전 인프라 현황</h1>
+  <p class="subtitle">report_kit 동작 확인용 예시 보고서 (수치는 가상)</p>
+  <div class="meta">작성: DSH · 작성일: 2026-11-07 · 기준 시점: 2026년 10월</div>
+</div>
+
+<nav class="toc">
+  <h2 class="toc-title">목차</h2>
+  <ol>
+    <li data-target="s1"><a href="#s1">1. 핵심 요약</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="s2"><a href="#s2">2. 지역별 충전기 현황</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li class="sub" data-target="s2-1"><a href="#s2-1">2.1 시도별 표</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li class="sub" data-target="s2-2"><a href="#s2-2">2.2 연도별 추이</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="s3"><a href="#s3">3. 쟁점과 전망</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="caveats"><a href="#caveats">확인 못 한 것 / 상충 정보</a><span class="dots"></span><span class="toc-pn"></span></li>
+    <li data-target="refs"><a href="#refs">참고문헌</a><span class="dots"></span><span class="toc-pn"></span></li>
+  </ol>
+</nav>
+
+<section>
+  <h2 id="s1">1. 핵심 요약</h2>
+  <div class="summary">
+    <div class="summary-title">핵심 요약</div>
+    <ul>
+      <li>전국 충전기는 2026년 약 12만 기로 4년 새 4배 늘었다 <a class="fn" href="#ref-1">[1]</a>.</li>
+      <li>급속충전기 비중은 약 10%로, 수도권 집중이 뚜렷하다 <a class="fn" href="#ref-2">[2]</a>.</li>
+      <li>공동주택 화재 안전 기준 강화가 2027년 보급 속도의 변수다 <a class="fn" href="#ref-3">[3]</a>.</li>
+    </ul>
+  </div>
+  <p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+
+<p>요약 쪽은 한 쪽을 혼자 차지하므로 쪽 높이의 절반 이상을 채운다. 결론마다 근거 수치와 출처 번호를 붙이고, 정의가 다른 수치는 섞지 않는다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 요약 쪽은 한 쪽을 혼자 차지하므로 쪽 높이의 절반 이상을 채운다. 결론마다 근거 수치와 출처 번호를 붙이고, 정의가 다른 수치는 섞지 않는다.</p>
+
+</section>
+
+<section class="page-break">
+  <h2 id="s2">2. 지역별 충전기 현황</h2>
+  <p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+  <h3 id="s2-1">2.1 시도별 표</h3>
+  <div class="table-caption">표 1. 시도별 충전기 수 (2026년 10월, 가상 수치)</div>
+  <table>
+    <thead><tr><th style="width:14%">시도</th><th style="width:16%">급속(기)</th><th style="width:16%">완속(기)</th><th>특징</th></tr></thead>
+    <tbody>
+<tr><td>서울</td><td>4200</td><td>61000</td><td>공동주택 완속 비중 높음</td></tr>
+<tr><td>경기</td><td>5100</td><td>72000</td><td>신도시 중심 증가</td></tr>
+<tr><td>부산</td><td>1300</td><td>15000</td><td>항만 물류 거점</td></tr>
+<tr><td>대구</td><td>900</td><td>11000</td><td>공공 주차장 위주</td></tr>
+<tr><td>인천</td><td>1100</td><td>14000</td><td>공항·항만 수요</td></tr>
+<tr><td>광주</td><td>600</td><td>8000</td><td>보급률 정체</td></tr>
+<tr><td>대전</td><td>700</td><td>9000</td><td>연구단지 중심</td></tr>
+<tr><td>울산</td><td>500</td><td>6000</td><td>산업단지 수요</td></tr>
+<tr><td>세종</td><td>300</td><td>4000</td><td>인구 대비 높음</td></tr>
+<tr><td>강원</td><td>800</td><td>7000</td><td>관광지 급속 위주</td></tr>
+<tr><td>충북</td><td>700</td><td>7500</td><td>고속도로 휴게소</td></tr>
+<tr><td>충남</td><td>900</td><td>9000</td><td>산업단지</td></tr>
+<tr><td>전북</td><td>600</td><td>6500</td><td>농촌 지역 공백</td></tr>
+<tr><td>전남</td><td>700</td><td>7000</td><td>섬 지역 공백</td></tr>
+<tr><td>경북</td><td>1000</td><td>9500</td><td>넓은 면적</td></tr>
+<tr><td>경남</td><td>1200</td><td>12000</td><td>제조업 밀집</td></tr>
+<tr><td>제주</td><td>800</td><td>9000</td><td>보급률 최상위</td></tr>
+<tr><td>서울</td><td>4200</td><td>61000</td><td>공동주택 완속 비중 높음</td></tr>
+<tr><td>경기</td><td>5100</td><td>72000</td><td>신도시 중심 증가</td></tr>
+<tr><td>부산</td><td>1300</td><td>15000</td><td>항만 물류 거점</td></tr>
+<tr><td>대구</td><td>900</td><td>11000</td><td>공공 주차장 위주</td></tr>
+<tr><td>인천</td><td>1100</td><td>14000</td><td>공항·항만 수요</td></tr>
+<tr><td>광주</td><td>600</td><td>8000</td><td>보급률 정체</td></tr>
+<tr><td>대전</td><td>700</td><td>9000</td><td>연구단지 중심</td></tr>
+<tr><td>울산</td><td>500</td><td>6000</td><td>산업단지 수요</td></tr>
+<tr><td>세종</td><td>300</td><td>4000</td><td>인구 대비 높음</td></tr>
+<tr><td>강원</td><td>800</td><td>7000</td><td>관광지 급속 위주</td></tr>
+<tr><td>충북</td><td>700</td><td>7500</td><td>고속도로 휴게소</td></tr>
+<tr><td>충남</td><td>900</td><td>9000</td><td>산업단지</td></tr>
+<tr><td>전북</td><td>600</td><td>6500</td><td>농촌 지역 공백</td></tr>
+<tr><td>전남</td><td>700</td><td>7000</td><td>섬 지역 공백</td></tr>
+<tr><td>경북</td><td>1000</td><td>9500</td><td>넓은 면적</td></tr>
+<tr><td>경남</td><td>1200</td><td>12000</td><td>제조업 밀집</td></tr>
+<tr><td>제주</td><td>800</td><td>9000</td><td>보급률 최상위</td></tr>
+    </tbody>
+  </table>
+  <h3 id="s2-2">2.2 연도별 추이</h3>
+  <figure>
+<svg width="460" height="220" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg" font-family="Apple SD Gothic Neo" font-size="11">
+<line x1="40" y1="190" x2="440" y2="190" stroke="#444"/>
+<rect x="60" y="151" width="44" height="39" fill="#2457a6"/>
+<text x="82" y="206" text-anchor="middle">2022년</text>
+<text x="82" y="145" text-anchor="middle" fill="#12223d">30</text>
+<rect x="138" y="128" width="44" height="62" fill="#2457a6"/>
+<text x="160" y="206" text-anchor="middle">2023년</text>
+<text x="160" y="122" text-anchor="middle" fill="#12223d">48</text>
+<rect x="216" y="99" width="44" height="91" fill="#2457a6"/>
+<text x="238" y="206" text-anchor="middle">2024년</text>
+<text x="238" y="93" text-anchor="middle" fill="#12223d">70</text>
+<rect x="294" y="66" width="44" height="124" fill="#2457a6"/>
+<text x="316" y="206" text-anchor="middle">2025년</text>
+<text x="316" y="60" text-anchor="middle" fill="#12223d">95</text>
+<rect x="372" y="34" width="44" height="156" fill="#2457a6"/>
+<text x="394" y="206" text-anchor="middle">2026년</text>
+<text x="394" y="28" text-anchor="middle" fill="#12223d">120</text>
+<text x="40" y="16" fill="#555">단위: 천 기</text></svg>
+    <figcaption>그림 1. 전국 충전기 누적 대수 추이 (가상 수치)</figcaption>
+  </figure>
+</section>
+
+<section class="page-break">
+  <h2 id="s3">3. 쟁점과 전망</h2>
+  <p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+<p>국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. 국내 전기차 충전 인프라는 2024년 이후 급속충전기 중심으로 빠르게 늘었다. 다만 지역별 편차가 크고, 공동주택 완속충전기 보급은 여전히 수요를 따라가지 못한다. 이 단락은 예시 보고서의 분량을 채우기 위한 본문이며 실제 수치가 아니다. </p>
+
+</section>
+
+<section>
+  <h2 id="caveats">확인 못 한 것 / 상충 정보</h2>
+  <div class="caveats">
+    <div class="caveats-title">확인 못 한 것 · 상충 정보</div>
+    <ul>
+      <li>확인 못 한 것: 2026년 공동주택 완속충전기 설치 대수는 공개 자료가 없어 쓰지 않았다.</li>
+      <li>상충 정보: 없음.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-break">
+  <h2 id="refs">참고문헌</h2>
+  <ol class="refs">
+    <li id="ref-1">예시 부처, 「전기차 충전 인프라 구축 현황」, 2026-10-15.
+      <a class="url" href="https://example.go.kr/ev/charging-status-2026-10.pdf">https://example.go.kr/ev/charging-status-2026-10.pdf</a></li>
+    <li id="ref-2">예시 공단, 「급속충전기 지역별 분포 분석」, 2026-09-30.
+      <a class="url" href="https://example.or.kr/reports/fast-charger-distribution-2026-09">https://example.or.kr/reports/fast-charger-distribution-2026-09</a></li>
+    <li id="ref-3">예시 기관, 「공동주택 전기차 충전시설 화재안전 기준 개정안」, 2026-08-20.
+      <a class="url" href="https://example.go.kr/news/apartment-charger-fire-safety-2026-08">https://example.go.kr/news/apartment-charger-fire-safety-2026-08</a></li>
+  </ol>
+</section>
+
+</body>
+</html>
