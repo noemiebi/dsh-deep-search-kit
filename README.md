@@ -1,15 +1,18 @@
 # dsh-deep-search-kit
 
-**English summary.** A small kit for the Web profile of DSH (DeepSeek's agent harness, `@deepseek-ai/dsh`). It turns the built-in *Standard* mode (`id: standard`) into a **Deep search** research mode through a profile patch overlay: research rules in the system prompt (primary sources first, search/fetch budgets, cited numbers only, a facts file that survives compaction, chunked writes for long files). It also ships two helper tools the rules point to: `fetch_doc.sh` (reads PDFs/HWPX attachments and slow servers that `web_fetch` cannot handle) and `report_kit` (A4 Korean PDF reports via headless Chrome, with automatic table-of-contents page numbers and a number-vs-facts check). The rules are written in Korean and tell the agent to answer in Korean. macOS only (tested on macOS; Windows and Linux are not supported). Tested with DSH 0.2.1-rc.2.
+**English summary.** A small kit for the Web profile of DSH (DeepSeek's agent harness, `@deepseek-ai/dsh`). It turns the built-in *Standard* mode (`id: standard`) into a **Deep search** research mode through a profile patch overlay: research rules in the system prompt (primary sources first, search/fetch budgets, cited numbers only, a facts file that survives compaction, chunked writes for long files). It also ships two helper tools the rules point to: `fetch_doc.sh` (reads PDF/HWPX/Excel attachments and slow servers that `web_fetch` cannot handle) and `report_kit` (A4 Korean PDF reports via headless Chrome, with automatic table-of-contents page numbers and a number-vs-facts check). The rules are written in Korean and tell the agent to answer in Korean. Web search is designed around **Exa** (`EXA_API_KEY` required; without it DSH falls back to its default search). macOS only (tested on macOS; Windows and Linux are not supported). Tested with DSH 0.2.1-rc.2.
 
 ---
 
 DSH Web 프로필의 **Deep search 모드**용 설정 묶음입니다.
 
+> **macOS 전용** · **웹 검색은 Exa 사용**(Exa API 키 `EXA_API_KEY` 필요). 검색 상한·읽기 방식은 검색 결과에 본문을 함께 주는 Exa 기준으로 맞췄습니다. 키가 없으면 DSH 기본 검색으로 동작하지만 결과가 달라질 수 있습니다.
+
 - **시스템 지시문 패치** `profiles/web/deep-search.patch.yml` — 내장 Standard 모드를 깊은 조사용 "Deep search" 모드로 바꿉니다.
-- **문서 받기 도구** `tools/fetch_doc.sh` — PDF·HWPX 첨부, 느린 기관 서버 문서를 받아 글자로 바꿉니다.
+- **문서 받기 도구** `tools/fetch_doc.sh` — PDF·HWPX·엑셀(XLSX·XLS) 첨부, 느린 기관 서버 문서를 받아 글자로 바꿉니다.
 - **PDF 보고서 키트** `tools/report_kit/` — 조사 결과를 A4 한글 보고서 PDF로 만듭니다.
-- (선택) `profiles/web/exa-search.patch.yml` — Exa 웹 검색 공급자 연결.
+- **Exa 검색 연결** `profiles/web/exa-search.patch.yml` — 권장. 설치법은 아래 [Exa 검색](#exa-검색-권장).
+- **차트 글꼴** `tools/matplotlibrc` — matplotlib 차트에서 한글·일본어·중국어 한자가 빠지지 않게 합니다.
 
 시험한 버전: `@deepseek-ai/dsh` **0.2.1-rc.2** (macOS). **macOS 전용**입니다.
 
@@ -19,7 +22,7 @@ DSH Web 프로필의 **Deep search 모드**용 설정 묶음입니다.
 
 내장 `preset-standard` 행을 덮어씁니다. DSH patch에서 `config`는 통째로 교체되므로 `@deepseek-ai/dsh-web-app/presets/standard.patch.yml`을 그대로 옮기고 **이름·설명·persona(prefix·suffix)만** 바꿨습니다. 도구 목록(bash, 파일, 웹, subagent, workflow, plan mode 등)은 내장 Standard와 같습니다.
 
-persona suffix에 넣은 조사 규칙 15개가 겨냥한 문제:
+persona suffix에 넣은 조사 규칙 19개가 겨냥한 문제:
 
 | 규칙 | 해결하려던 문제 |
 |---|---|
@@ -33,6 +36,10 @@ persona suffix에 넣은 조사 규칙 15개가 겨냥한 문제:
 | 13 | 문자열 위치 자르기로 HTML을 고치다 문서가 깨짐 |
 | 14 | PDF 도구를 매번 새로 찾고(WeasyPrint 설치 시도 등) 목차 쪽번호를 손으로 씀 → `report_kit` 사용 |
 | 15 | `web_fetch`가 PDF를 못 읽음, 접속이 멈추는 서버에서 시간 초과 → `fetch_doc.sh` 사용 |
+| 16 | 엑셀 구조를 python으로 매번 새로 파싱(한 세션에 15회 넘게 재시도), 차트에서 한자 글자 누락 → `fetch_doc.sh` 엑셀 변환, `matplotlibrc` |
+| 17 | 작업 폴더에 쌓인 예전 파일을 확인 없이 근거로 씀, 시작할 때 폴더 전체 목록을 읽느라 문맥 낭비 → 작업마다 하위 폴더 |
+| 18 | 막힌 페이지(401·403·로그인·유료)를 계속 다시 부름 → 다른 원천으로, 못 읽은 자료는 밝힘 |
+| 19 | 브랜드 합이 전체와 안 맞거나 점유율 합이 100%가 아닌데 그대로 냄 → 다시 계산해 차이와 이유를 적음 |
 
 상한 숫자는 폭주를 막기 위한 값이고 목표가 아닙니다. 환경(모델, 조사 규모, 요금)에 맞게 규칙 4(subagent 몫은 규칙 12)에서 조정합니다.
 
@@ -42,6 +49,7 @@ persona suffix에 넣은 조사 규칙 15개가 겨냥한 문제:
 
 - `curl --connect-timeout 5 --retry 6 --retry-all-errors`: 접속이 멈추면 5초 만에 끊고 다시 붙습니다(최대 90초).
 - PDF는 `pdftotext -layout`, HTML은 태그 제거, HWPX는 zip 안 XML에서 글자를 뽑습니다. 옛 HWP 바이너리·스캔 PDF는 못 읽는다고 알려 줍니다.
+- 엑셀: XLSX는 표준 라이브러리로, XLS는 `xlrd`로 읽습니다(`FETCH_DOC_PYTHON`으로 쓸 python 지정 가능, 없으면 `../.venv/bin/python` → `python3`). 시트마다 `### 시트: 이름 (행 N, 열 M)` 뒤에 `r행번호<탭>칸...` 줄로 적어 `-g`·`grep -n`으로 필요한 행만 봅니다. 날짜 칸은 엑셀 일련번호 숫자 그대로입니다.
 - 원본과 `.txt`를 `./_downloads/`에 저장하고, `-g 찾을말` 주변 줄만 보여 줘서 문맥 창을 아낍니다.
 
 ```
@@ -59,7 +67,7 @@ fetch_doc.sh "https://example.go.kr/files/notice.pdf" -g "제3조" -g "별표"
 세부:
 
 - DSH (`@deepseek-ai/dsh`, Web 프로필). 모델·공급자는 DSH 기본 DeepSeek 공급자를 그대로 씁니다. 다른 공급자를 쓰려면 각자 프로필에서 설정합니다(이 키트는 공급자 설정을 바꾸지 않습니다).
-- `fetch_doc.sh`: `bash`, `curl`, `file`, `python3`(표준 라이브러리만), `unzip`, **poppler**의 `pdftotext`·`pdfinfo` (`brew install poppler`).
+- `fetch_doc.sh`: `bash`, `curl`, `file`, `python3`(표준 라이브러리만, XLSX 포함), `unzip`, **poppler**의 `pdftotext`·`pdfinfo` (`brew install poppler`). XLS를 읽으려면 `xlrd`가 있는 python(`pip install xlrd`, `FETCH_DOC_PYTHON`으로 지정 가능).
 - `report_kit/build_pdf.py`: `python3`(표준 라이브러리만, 별도 pip 패키지 없음), **Google Chrome** (`/Applications` 또는 `~/Applications`). 선택: poppler의 `pdftotext`(없으면 macOS PDFKit/`osascript`로 대신 읽음)·`pdffonts`(글꼴 검사)·`pdftoppm`(`--preview` 미리보기).
 - 글꼴: `report.css`가 macOS 기본 한글 글꼴 `Apple SD Gothic Neo`를 씁니다.
 
@@ -83,7 +91,7 @@ dsh --profile web --patch ~/.dsh/profiles/web/deep-search.patch.yml
 
 도구 폴더 경로에는 공백이 없는 편이 좋습니다(에이전트가 bash 명령에 경로를 그대로 씁니다). DSH 샌드박스를 쓰면 도구 폴더가 에이전트가 읽고 실행할 수 있는 곳(보통 workspace 안)이어야 합니다.
 
-### Exa 검색 (선택)
+### Exa 검색 (권장)
 
 ```bash
 dsh plugin --profile web add @deepseek-ai/dsh-web-search-exa
@@ -92,6 +100,14 @@ dsh --profile web --patch ~/.dsh/profiles/web/deep-search.patch.yml --patch ~/.d
 ```
 
 `EXA_API_KEY`가 비어 있으면 기본 `deepseek-official` 검색으로 돌아갑니다.
+
+### 차트 글꼴 (matplotlib)
+
+에이전트가 쓰는 python에서 matplotlib 차트를 그릴 때 `tools/matplotlibrc`를 쓰게 합니다. 한글(Apple SD Gothic Neo) 다음에 일본어·중국어 한자 글꼴(Hiragino Sans 등)을 글자마다 찾아 씁니다.
+
+```bash
+export MATPLOTLIBRC=~/dsh-workspace/_tools/matplotlibrc   # DSH를 띄우는 환경에
+```
 
 ## 수동 설치
 

@@ -1,0 +1,5 @@
+# matplotlib 기본 글꼴 (MATPLOTLIBRC 로 지정). 한글 + 일본어·중국어 한자 대체 글꼴.
+# font.family에 글꼴 이름을 직접 나열해야 글자마다 앞에서부터 찾는다('sans-serif' 한 단어로 두면 첫 글꼴만 씀).
+font.family: Apple SD Gothic Neo, Hiragino Sans, Hiragino Sans GB, Heiti TC, Arial Unicode MS, DejaVu Sans
+font.sans-serif: Apple SD Gothic Neo, Hiragino Sans, Hiragino Sans GB, Heiti TC, Arial Unicode MS, DejaVu Sans
+axes.unicode_minus: False

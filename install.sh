@@ -2,7 +2,7 @@
 # dsh-deep-search-kit 설치 스크립트
 #
 # 하는 일
-#   1. tools/(fetch_doc.sh, report_kit/)를 --tools-dir 에 복사한다.
+#   1. tools/(fetch_doc.sh, matplotlibrc, report_kit/)를 --tools-dir 에 복사한다.
 #   2. profiles/web/*.patch.yml 의 __DSH_TOOLS__ 를 그 폴더의 절대경로로 바꿔 $DSH_HOME/profiles/<프로필>/ 에 둔다.
 #   3. 기존 파일이 있고 내용이 다르면 물어본 뒤 .bak-<시각> 으로 백업하고 바꾼다. 거절하면 그 파일은 건너뛴다.
 #   프로필의 cordis.patch.yml 은 건드리지 않는다. 패치는 dsh 실행 때 --patch 로 붙인다(끝에 안내).
@@ -85,6 +85,7 @@ confirm "진행할까요?" || { echo "취소함"; exit 1; }
 
 echo "[1/2] 도구 복사"
 install_file "$SRC/tools/fetch_doc.sh" "$TOOLS_ABS/fetch_doc.sh"
+install_file "$SRC/tools/matplotlibrc" "$TOOLS_ABS/matplotlibrc"
 while IFS= read -r -d '' f; do
   rel="${f#"$SRC/tools/"}"
   case "$rel" in */.DS_Store|*/__pycache__/*) continue;; esac
@@ -118,5 +119,6 @@ echo
 echo "끝. 실행 예:"
 p="--patch $PROFILE_DIR/deep-search.patch.yml"
 [ "$WITH_EXA" -eq 1 ] && p="$p --patch $PROFILE_DIR/exa-search.patch.yml"
-echo "  dsh --profile $PROFILE $p"
+echo "  MATPLOTLIBRC=$TOOLS_ABS/matplotlibrc dsh --profile $PROFILE $p"
+echo "(MATPLOTLIBRC: 에이전트가 그리는 matplotlib 차트의 한글·한자 글꼴. 쓰지 않으면 빼도 된다)"
 echo "적용 확인: 위 명령 끝에 --dump-config 를 붙여 'name: Deep search' 가 보이는지 본다."

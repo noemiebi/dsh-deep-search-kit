@@ -5,7 +5,7 @@
   margin: 18mm 16mm 18mm 16mm;
   @bottom-center {
     content: counter(page) " / " counter(pages);
-    font-family: "Apple SD Gothic Neo", "AppleGothic", sans-serif;
+    font-family: "Apple SD Gothic Neo", "AppleGothic", "Hiragino Sans", "Hiragino Sans GB", sans-serif;
     font-size: 8pt;
     color: #8a94a6;
   }
@@ -18,7 +18,7 @@
 html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 body {
   margin: 0;
-  font-family: "Apple SD Gothic Neo", "AppleGothic", "Noto Sans KR", sans-serif;
+  font-family: "Apple SD Gothic Neo", "AppleGothic", "Hiragino Sans", "Hiragino Sans GB", "Noto Sans KR", sans-serif;
   font-size: 10pt;
   line-height: 1.65;
   color: #1f2633;
